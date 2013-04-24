@@ -1,0 +1,145 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+" My Bundles here:
+Bundle 'ctrlp.vim'
+Bundle 'AutoClose'
+Bundle 'ZenCoding.vim'
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails.git'
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+" non github repos
+Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+color neon
+"color darkblue2
+set nu
+set tags=tags;
+set autochdir
+
+set helplang=cn
+set encoding=utf-8
+set fileencodings=utf-8
+set guifont=Courier_New:h11:cGB2312
+set guifont=Courier_New:h11
+set nocompatible
+set history=1000
+set ai
+set si
+set ts=4
+set st=4
+set sw=4
+set vb t_vb=
+set nohls
+set ignorecase
+set hlsearch
+set incsearch
+set nobackup
+set nowb
+set noswapfile
+set ruler
+set linebreak
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+set laststatus=2
+
+"Hidden menu bar and tool bar, press F2 to switch
+set guioptions-=m
+set guioptions-=T
+"Delete left/right ScrollBar
+set go-=r
+set go-=L
+map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+		\set guioptions-=T <Bar>
+		\set guioptions-=m <Bar>
+		\set go-=r <Bar>
+		\set go-=L <Bar>
+	\else <Bar>
+		\set guioptions+=T <Bar>
+		\set guioptions+=m <Bar>
+		\set go+=r <Bar>
+		\set go+=L <Bar>
+	\endif<CR>
+
+"jsbeautify setting
+Bundle '_jsbeautify'
+nnoremap <leader>_ff :call g:Jsbeautify()<CR>
+
+"EasyMotion setting
+Bundle 'EasyMotion'
+let g:EasyMotion_leader_key = '<Leader><Leader>'
+
+"Fencview init setting
+Bundle 'FencView.vim'
+let g:fencview_autodetect=1
+
+"NerdTree setting
+Bundle 'The-NERD-tree'
+nmap <leader>nt :NERDTree<cr>:set rnu<cr>
+let NERDTreeShowBookmarks=1
+let NERDTreeShowFiles=1
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.$','\~$']
+let NERDTreeShowLineNumbers=1
+let NERDTreeWinPos=1
+"NERD_commenter setting
+Bundle 'The-NERD-Commenter'
+let NERDShutUp=1
+"Support single line and multiline choose, //format
+map <c-h> ,c<space>
+
+
+imap jj <Esc>
+
